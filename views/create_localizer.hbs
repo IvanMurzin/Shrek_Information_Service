@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add localizer</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="create_localizer.css">
+</head>
+
+
+<body>
+    <h1>Add localizer</h1>
+    <h1>Film name {{film_name}}</h1>
+    <form method="POST" action="/create_localizer/{{film_name}}">
+        <label>Localizer name</label><br>
+        <input name="localizer_name" class="field" /><br><br>
+        <label>Localizer preview</label><br>
+        <input name="localizer_preview" class="field" /><br><br>
+        <input type="submit" value="Отправить" />
+    </form>
+    <a href="/">To film list</a>
+</body>
+<html>

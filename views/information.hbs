@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shrek Info Service</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="information.css">
+</head>
+
+<body>
+    <p align="center"><a href="/" >To film list</a></p>
+    <h1 align="center">{{films.film_name}}</h1>
+    <table align="center">
+        <tr>
+            <td>{{this.film_name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="{{films.film_poster}}" alt="{{films.film_name}} poster" width="200" height="400">
+            </td>
+        </tr>
+        <tr>
+            <td>{{films.film_release_date}}</td>
+        </tr>
+        <tr>
+            <td>{{films.film_duration}}</td>
+        </tr>
+        <tr>
+            <td>{{films.film_producer}}</td>
+        </tr>
+        <tr>
+            <td>{{films.film_description}}</td>
+        </tr>
+        <tr>
+            <td><img src="{{films.film_trailer}}" alt="{{films.film_name}} trailer" width="400" height="400"></td>
+        </tr>
+        <td>
+            <a href="/edit/{{films.film_name}}">Edit</a>|
+            <form action="../delete/{{films.film_name}}" method="POST">
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+        </tr>
+        <td>------------------------------------------------------<br><br><br></td>
+    </table>
+
+
+    <h1 align="center">Actors</h1>
+    <p align="center"><a href="/create_actor/{{films.film_name}}">Add actor</a></p>
+    <table align="center">
+        {{#each actors}}
+        <tr>
+            <td>{{this.actor_name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="{{this.actor_preview}}" alt="{{this.actor_name}} preview" width="100" height="100">
+            </td>
+        </tr>
+        <td>
+            <a href="../edit_actor/{{this.actor_name}}">Edit</a>|
+            <form action="/delete_actor/{{this.actor_name}}" method="POST">
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+        </tr>
+        <td>------------------------------------------------------<br><br><br></td>
+        {{/each}}
+    </table>
+        <h1 align="center">localizers</h1>
+    <p align="center"><a href="/create_localizer/{{films.film_name}}">Add localizer</a></p>
+    <table align="center">
+        {{#each localizers}}
+        <tr>
+            <td>{{this.localizer_name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <img src="{{this.localizer_preview}}" alt="{{this.localizer_name}} preview" width="100" height="100">
+            </td>
+        </tr>
+        <td>
+            <a href="../edit_localizer/{{this.localizer_name}}">Edit</a>|
+            <form action="/delete_localizer/{{this.localizer_name}}" method="POST">
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+        </tr>
+        <td>------------------------------------------------------<br><br><br></td>
+        {{/each}}
+    </table>
+</body>
+
+</html>

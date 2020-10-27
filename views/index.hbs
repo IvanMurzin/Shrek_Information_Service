@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shrek Info Service</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+    <h1 align="center">Shrek films</h1>
+    <p align="center"><a href="/create">Add film</a></p>
+    {{#each films}}
+    <table align="center">
+        <tr><td><h1>{{this.film_name}}</h1></td></tr>
+        <tr>
+            <td>{{this.film_name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/info/{{this.film_name}}"><img src="{{this.film_poster}}" alt="{{this.film_name}} poster"
+                        width="200" height="400"></a>
+            </td>
+        </tr>
+        <tr>
+            <td>{{this.film_release_date}} year</td>
+        </tr>
+        <tr>
+            <td>{{this.film_duration}} min</td>
+        </tr>
+        <td>
+            <a href="/edit/{{this.film_name}}">Edit</a>|
+            <form action="delete/{{this.film_name}}" method="POST">
+                <input type="submit" value="Delete" />
+            </form>
+        </td>
+        </tr>
+        <td>------------------------------------------------------<br><br><br></td>
+    </table>
+    {{/each}}
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add actor</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="create_actor.css">
+</head>
+
+
+<body>
+    <h1>Add actor</h1>
+    <h1>Film name {{film_name}}</h1>
+    <form method="POST" action="/create_actor/{{film_name}}">
+        <label>Actor name</label><br>
+        <input name="actor_name" class="field" /><br><br>
+        <label>Actor preview</label><br>
+        <input name="actor_preview" class="field" /><br><br>
+        <input type="submit" value="Отправить" />
+    </form>
+    <a href="/">To film list</a>
+</body>
+<html>

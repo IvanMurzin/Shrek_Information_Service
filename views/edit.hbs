@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Film edit</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="edit_actor.css">
+</head>
+
+<body>
+    <h1>Film edit</h1>
+    <h2>{{film.film_name}}</h2>
+    <form method="POST" action="/edit">
+        <label>Film poster link</label><br>
+        <input name="film_poster" class="field"        value="{{film.film_poster}}" /><br><br>
+        <label>Film release date</label><br>
+        <input name="film_release_date" class="field"  value="{{film.film_release_date}}" /><br><br>
+        <label>Film duration</label><br>
+        <input name="film_duration" class="field"      value="{{film.film_duration}}" /><br><br>
+        <label>Film producer</label><br>
+        <input name="film_producer" class="field"      value="{{film.film_producer}}" /><br><br>
+        <label>Film description</label><br>
+        <input name="film_description" class="field"   value="{{film.film_description}}" /><br><br>
+        <label>Film trailer</label><br>
+        <input name="film_trailer" class="field"       value="{{film.film_trailer}}" /><br><br>
+        <input type="hidden" name="film_name" class="field"       value="{{film.film_name}}" /><br><br>
+        <input type="submit" value="Отправить"/>
+    </form>
+    <a href="/">To film list</a>
+</body>
+<html>

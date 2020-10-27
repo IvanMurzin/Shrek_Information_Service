@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Actor edit</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="edit_actor.css">
+</head>
+
+<body>
+    <h1>Actor edit</h1>
+    <h2>{{actor.actor_name}}</h2>
+    <h3>{{actor.film_name}}</h3>
+    <form action="/edit_actor/{{actor.film_name}}" method="POST">
+        <label>Preview actor href</label><br>
+        <input name="actor_preview" class="field" value="{{actor.actor_preview}}" /><br><br>
+        <input type="hidden" name="actor_name" class="field" value="{{actor.actor_name}}" />
+        <input type="submit" value="Отправить" />
+    </form>
+    <a href="/">To film list</a>
+</body>
+<html>

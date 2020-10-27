@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Localeizer edit</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="edit_localizer.css">
+</head>
+
+<body>
+    <h1>Localeizer edit</h1>
+    <h2>{{localizer.localizer_name}}</h2>
+    <h3>{{localizer.film_name}}</h3>
+    <form action="/edit_localizer/{{localizer.film_name}}" method="POST">
+        <label>Preview localizer href</label><br>
+        <input name="localizer_preview" class="field" value="{{localizer.localizer_preview}}" /><br><br>
+        <input type="hidden" name="localizer_name" class="field" value="{{localizer.localizer_name}}" />
+        <input type="submit" value="Отправить" />
+    </form>
+    <a href="/">To film list</a>
+</body>
+<html>
