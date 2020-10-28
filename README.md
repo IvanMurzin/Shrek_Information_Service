@@ -3,5 +3,6 @@
 ### For usage this code you should run 
 ~~~bash
 npm install
+node app.js
 ~~~
 ![Shrek](https://j.gifs.com/k8m1yX.gif)
