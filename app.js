@@ -28,8 +28,8 @@ app.set("view engine", "hbs");
 app.get("/", function (req, res) {
   pool.query("SELECT * FROM films", function (err, data) {
     if (err) return console.log(err);
-    res.render("index.hbs", { 
-      films: data, 
+    res.render("index.hbs", {
+      films: data,
     });
   });
 });
@@ -37,13 +37,13 @@ app.get("/", function (req, res) {
 // получаем имя фильма, информацию о котором нужно вывести
 app.get("/info/:film_name", function (req, res) {
   const film_name = req.params.film_name;
-  pool.query("SELECT * FROM films WHERE film_name=?",[film_name], function (err, film_data) {
+  pool.query("SELECT * FROM films WHERE film_name=?", [film_name], function (err, film_data) {
     if (err) return console.log(err);
-    pool.query("SELECT * FROM actors WHERE film_name=?",[film_name], function (err, actors_data) {
+    pool.query("SELECT * FROM actors WHERE film_name=?", [film_name], function (err, actors_data) {
       if (err) return console.log(err);
-      pool.query("SELECT * FROM localizers WHERE film_name=?",[film_name], function (err, localizers_data) {
+      pool.query("SELECT * FROM localizers WHERE film_name=?", [film_name], function (err, localizers_data) {
         if (err) return console.log(err);
-        res.render("information.hbs", { 
+        res.render("information.hbs", {
           films: film_data[0],
           actors: actors_data,
           localizers: localizers_data
@@ -61,7 +61,7 @@ app.get("/create", function (req, res) {
 // возвращаем форму для добавления актеров
 app.get("/create_actor/:film_name", function (req, res) {
   const film_name = req.params.film_name;
-  res.render("create_actor.hbs",{
+  res.render("create_actor.hbs", {
     film_name: film_name
   });
 });
@@ -69,7 +69,7 @@ app.get("/create_actor/:film_name", function (req, res) {
 // возвращаем форму для добавления локализаторов
 app.get("/create_localizer/:film_name", function (req, res) {
   const film_name = req.params.film_name;
-  res.render("create_localizer.hbs",{
+  res.render("create_localizer.hbs", {
     film_name: film_name
   });
 });
@@ -97,10 +97,11 @@ app.post("/create_actor/:film_name", urlencodedParser, function (req, res) {
   const actor_name = req.body.actor_name;
   const film_name = req.params.film_name;
   const actor_preview = req.body.actor_preview;
-  const insert_data = [actor_name,film_name,actor_preview]
-  pool.query("INSERT INTO actors (actor_name,film_name,actor_preview) VALUES (?,?,?)", insert_data, function (err, data) {
+  const actor_person = req.body.actor_person;
+  const insert_data = [actor_name, film_name, actor_preview, actor_person]
+  pool.query("INSERT INTO actors (actor_name,film_name,actor_preview,actor_person) VALUES (?,?,?,?)", insert_data, function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/info/"+film_name);
+    res.redirect("/info/" + film_name);
   });
 });
 
@@ -110,10 +111,11 @@ app.post("/create_localizer/:film_name", urlencodedParser, function (req, res) {
   const localizer_name = req.body.localizer_name;
   const film_name = req.params.film_name;
   const localizer_preview = req.body.localizer_preview;
-  const insert_data = [localizer_name,film_name,localizer_preview]
-  pool.query("INSERT INTO localizers (localizer_name,film_name,localizer_preview) VALUES (?,?,?)", insert_data, function (err, data) {
+  const localizer_person = req.body.localizer_person;
+  const insert_data = [localizer_name, film_name, localizer_preview, localizer_person]
+  pool.query("INSERT INTO localizers (localizer_name,film_name,localizer_preview,localizer_person) VALUES (?,?,?,?)", insert_data, function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/info/"+film_name);
+    res.redirect("/info/" + film_name);
   });
 });
 
@@ -129,9 +131,11 @@ app.get("/edit/:film_name", function (req, res) {
 });
 
 // получем имя редактируемого актера, получаем его из БД и отправлям с формой редактирования
-app.get("/edit_actor/:actor_name", function (req, res) {
+app.get("/edit_actor/:film_name/:actor_name/:actor_person", function (req, res) {
   const actor_name = req.params.actor_name;
-  pool.query("SELECT * FROM actors WHERE actor_name=?", [actor_name], function (err, data) {
+  const film_name = req.params.film_name;
+  const actor_person = req.params.actor_person;
+  pool.query("SELECT * FROM actors WHERE actor_name=?  AND film_name=? AND actor_person=?", [actor_name, film_name, actor_person], function (err, data) {
     if (err) return console.log(err);
     res.render("edit_actor.hbs", {
       actor: data[0]
@@ -140,9 +144,11 @@ app.get("/edit_actor/:actor_name", function (req, res) {
 });
 
 // получем имя редактируемого локализатора, получаем его из БД и отправлям с формой редактирования
-app.get("/edit_localizer/:localizer_name", function (req, res) {
+app.get("/edit_localizer/:film_name/:localizer_name/:localizer_person", function (req, res) {
   const localizer_name = req.params.localizer_name;
-  pool.query("SELECT * FROM localizers WHERE localizer_name=?", [localizer_name], function (err, data) {
+  const film_name = req.params.film_name;
+  const localizer_person = req.params.localizer_person;
+  pool.query("SELECT * FROM localizers WHERE localizer_name=?  AND film_name=? AND localizer_person=?", [localizer_name, film_name, localizer_person], function (err, data) {
     if (err) return console.log(err);
     res.render("edit_localizer.hbs", {
       localizer: data[0]
@@ -173,10 +179,11 @@ app.post("/edit_actor/:film_name", urlencodedParser, function (req, res) {
   const actor_name = req.body.actor_name;
   const film_name = req.params.film_name;
   const actor_preview = req.body.actor_preview;
-  const insert_data = [film_name,actor_preview,actor_name];
-  pool.query("UPDATE actors SET film_name=?, actor_preview=? WHERE actor_name=?", insert_data, function (err, data) {
+  const actor_person = req.body.actor_person;
+  const insert_data = [film_name, actor_preview, actor_person, actor_name];
+  pool.query("UPDATE actors SET film_name=?, actor_preview=?, actor_person=? WHERE actor_name=?", insert_data, function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/info/"+film_name);
+    res.redirect("/info/" + film_name);
   });
 });
 
@@ -186,10 +193,11 @@ app.post("/edit_localizer/:film_name", urlencodedParser, function (req, res) {
   const localizer_name = req.body.localizer_name;
   const film_name = req.params.film_name;
   const localizer_preview = req.body.localizer_preview;
-  const insert_data = [film_name,localizer_preview,localizer_name];
-  pool.query("UPDATE localizers SET film_name=?, localizer_preview=? WHERE localizer_name=?", insert_data, function (err, data) {
+  const localizer_person = req.body.localizer_person;
+  const insert_data = [film_name, localizer_preview, localizer_person, localizer_name];
+  pool.query("UPDATE localizers SET film_name=?, localizer_preview=?,localizer_person=? WHERE localizer_name=?", insert_data, function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/info/"+film_name);
+    res.redirect("/info/" + film_name);
   });
 });
 
@@ -203,18 +211,22 @@ app.post("/delete/:film_name", function (req, res) {
 });
 
 // получаем имя удаляемого актера и удаляем его из БД
-app.post("/delete_actor/:actor_name", function (req, res) {
+app.post("/delete_actor/:film_name/:actor_name/:actor_person", function (req, res) {
   const actor_name = req.params.actor_name;
-  pool.query("DELETE FROM actors WHERE actor_name=?", [actor_name], function (err, data) {
+  const film_name = req.params.film_name;
+  const actor_person = req.params.actor_person;
+  pool.query("DELETE FROM actors WHERE actor_name=? AND film_name=? AND actor_person=?", [actor_name, film_name, actor_person], function (err, data) {
     if (err) return console.log(err);
     res.redirect("/");
   });
 });
 
 // получаем имя удаляемого локализатора и удаляем его из БД
-app.post("/delete_localizer/:localizer_name", function (req, res) {
+app.post("/delete_localizer/:film_name/:localizer_name/:localizer_person", function (req, res) {
   const localizer_name = req.params.localizer_name;
-  pool.query("DELETE FROM localizers WHERE localizer_name=?", [localizer_name], function (err, data) {
+  const film_name = req.params.film_name;
+  const localizer_person = req.params.localizer_person;
+  pool.query("DELETE FROM localizers WHERE localizer_name=?  AND film_name=? AND localizer_person=?", [localizer_name, film_name, localizer_person], function (err, data) {
     if (err) return console.log(err);
     res.redirect("/");
   });

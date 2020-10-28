@@ -14,6 +14,8 @@
     <form action="/edit_actor/{{actor.film_name}}" method="POST">
         <label>Preview actor href</label><br>
         <input name="actor_preview" class="field" value="{{actor.actor_preview}}" /><br><br>
+        <label>Person actor</label><br>
+        <input name="actor_person" class="field" value="{{actor.actor_person}}" /><br><br>
         <input type="hidden" name="actor_name" class="field" value="{{actor.actor_name}}" />
         <input type="submit" value="Отправить" />
     </form>

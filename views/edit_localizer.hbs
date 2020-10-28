@@ -14,6 +14,8 @@
     <form action="/edit_localizer/{{localizer.film_name}}" method="POST">
         <label>Preview localizer href</label><br>
         <input name="localizer_preview" class="field" value="{{localizer.localizer_preview}}" /><br><br>
+        <label>Person localizer</label><br>
+        <input name="localizer_person" class="field" value="{{localizer.localizer_person}}" /><br><br>
         <input type="hidden" name="localizer_name" class="field" value="{{localizer.localizer_name}}" />
         <input type="submit" value="Отправить" />
     </form>

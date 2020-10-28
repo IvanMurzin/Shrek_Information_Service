@@ -8,11 +8,11 @@
 </head>
 
 <body>
-    <p align="center"><a href="/" >To film list</a></p>
+    <p align="center"><a href="/">To film list</a></p>
     <h1 align="center">{{films.film_name}}</h1>
     <table align="center">
         <tr>
-            <td>{{this.film_name}}</td>
+            <td>{{films.film_name}}</td>
         </tr>
         <tr>
             <td>
@@ -53,13 +53,16 @@
             <td>{{this.actor_name}}</td>
         </tr>
         <tr>
+            <td>{{this.actor_person}}</td>
+        </tr>
+        <tr>
             <td>
                 <img src="{{this.actor_preview}}" alt="{{this.actor_name}} preview" width="100" height="100">
             </td>
         </tr>
         <td>
-            <a href="../edit_actor/{{this.actor_name}}">Edit</a>|
-            <form action="/delete_actor/{{this.actor_name}}" method="POST">
+            <a href="../edit_actor/{{this.film_name}}/{{this.actor_name}}/{{this.actor_person}}">Edit</a>|
+            <form action="/delete_actor/{{this.film_name}}/{{this.actor_name}}/{{this.actor_person}}" method="POST">
                 <input type="submit" value="Delete" />
             </form>
         </td>
@@ -67,7 +70,7 @@
         <td>------------------------------------------------------<br><br><br></td>
         {{/each}}
     </table>
-        <h1 align="center">localizers</h1>
+    <h1 align="center">localizers</h1>
     <p align="center"><a href="/create_localizer/{{films.film_name}}">Add localizer</a></p>
     <table align="center">
         {{#each localizers}}
@@ -75,13 +78,17 @@
             <td>{{this.localizer_name}}</td>
         </tr>
         <tr>
+            <td>{{this.localizer_person}}</td>
+        </tr>
+        <tr>
             <td>
                 <img src="{{this.localizer_preview}}" alt="{{this.localizer_name}} preview" width="100" height="100">
             </td>
         </tr>
         <td>
-            <a href="../edit_localizer/{{this.localizer_name}}">Edit</a>|
-            <form action="/delete_localizer/{{this.localizer_name}}" method="POST">
+            <a href="../edit_localizer/{{this.film_name}}/{{this.localizer_name}}/{{this.localizer_person}}">Edit</a>|
+            <form action="/delete_localizer/{{this.film_name}}/{{this.localizer_name}}/{{this.localizer_person}}"
+                method="POST">
                 <input type="submit" value="Delete" />
             </form>
         </td>
