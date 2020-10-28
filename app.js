@@ -217,7 +217,7 @@ app.post("/delete_actor/:film_name/:actor_name/:actor_person", function (req, re
   const actor_person = req.params.actor_person;
   pool.query("DELETE FROM actors WHERE actor_name=? AND film_name=? AND actor_person=?", [actor_name, film_name, actor_person], function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/");
+    res.redirect("/info/" + film_name);
   });
 });
 
@@ -228,7 +228,7 @@ app.post("/delete_localizer/:film_name/:localizer_name/:localizer_person", funct
   const localizer_person = req.params.localizer_person;
   pool.query("DELETE FROM localizers WHERE localizer_name=?  AND film_name=? AND localizer_person=?", [localizer_name, film_name, localizer_person], function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/");
+    res.redirect("/info/" + film_name);
   });
 });
 
