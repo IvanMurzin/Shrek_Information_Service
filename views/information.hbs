@@ -35,10 +35,12 @@
             <td><img src="{{films.film_trailer}}" alt="{{films.film_name}} trailer" width="400" height="400"></td>
         </tr>
         <td>
+            {{#if admin}}
             <a href="/edit/{{films.film_name}}">Edit</a>|
             <form action="../delete/{{films.film_name}}" method="POST">
                 <input type="submit" value="Delete" />
             </form>
+            {{/if}}
         </td>
         </tr>
         <td>------------------------------------------------------<br><br><br></td>
@@ -46,7 +48,9 @@
 
 
     <h1 align="center">Actors</h1>
+    {{#if admin}}
     <p align="center"><a href="/create_actor/{{films.film_name}}">Add actor</a></p>
+    {{/if}}
     <table align="center">
         {{#each actors}}
         <tr>
@@ -61,17 +65,21 @@
             </td>
         </tr>
         <td>
+            {{#if this.admin}}
             <a href="../edit_actor/{{this.film_name}}/{{this.actor_name}}/{{this.actor_person}}">Edit</a>|
             <form action="/delete_actor/{{this.film_name}}/{{this.actor_name}}/{{this.actor_person}}" method="POST">
                 <input type="submit" value="Delete" />
             </form>
+            {{/if}}
         </td>
         </tr>
         <td>------------------------------------------------------<br><br><br></td>
         {{/each}}
     </table>
     <h1 align="center">localizers</h1>
+    {{#if admin}}
     <p align="center"><a href="/create_localizer/{{films.film_name}}">Add localizer</a></p>
+    {{/if}}
     <table align="center">
         {{#each localizers}}
         <tr>
@@ -86,11 +94,13 @@
             </td>
         </tr>
         <td>
+            {{#if this.admin}}
             <a href="../edit_localizer/{{this.film_name}}/{{this.localizer_name}}/{{this.localizer_person}}">Edit</a>|
             <form action="/delete_localizer/{{this.film_name}}/{{this.localizer_name}}/{{this.localizer_person}}"
                 method="POST">
                 <input type="submit" value="Delete" />
             </form>
+            {{/if}}
         </td>
         </tr>
         <td>------------------------------------------------------<br><br><br></td>

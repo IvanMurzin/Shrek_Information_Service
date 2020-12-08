@@ -8,8 +8,20 @@
 </head>
 
 <body>
+
+    <form method="POST" action="/login">
+        <label>login</label><br>
+        <input name="login" class="field"/><br><br>
+        <label>password</label><br>
+        <input name="password" class="field"/><br><br>
+        <input type="submit" value="i'm admin"/>
+    </form>
+
+
     <h1 align="center">Shrek films</h1>
+    {{#if admin}}
     <p align="center"><a href="/create">Add film</a></p>
+    {{/if}}
     {{#each films}}
     <table align="center">
         <tr><td><h1>{{this.film_name}}</h1></td></tr>
@@ -29,10 +41,12 @@
             <td>{{this.film_duration}} min</td>
         </tr>
         <td>
+            {{#if this.admin}}
             <a href="/edit/{{this.film_name}}">Edit</a>|
             <form action="delete/{{this.film_name}}" method="POST">
                 <input type="submit" value="Delete" />
             </form>
+            {{/if}}
         </td>
         </tr>
         <td>------------------------------------------------------<br><br><br></td>

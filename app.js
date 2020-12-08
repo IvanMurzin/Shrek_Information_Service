@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const app = express();
 
+// костыль :С
+isAdmin = false
+
 // использование static директорий
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/styles'));
@@ -28,10 +31,24 @@ app.set("view engine", "hbs");
 app.get("/", function (req, res) {
   pool.query("SELECT * FROM films", function (err, data) {
     if (err) return console.log(err);
+    // костыль :С
+    data.forEach(element => {
+      element.admin=isAdmin
+    });
     res.render("index.hbs", {
-      films: data,
+      admin : isAdmin,
+      films: data
     });
   });
+});
+
+// пытаемся получить админку, безусловно, очень костыльно
+app.post("/login", urlencodedParser, function (req, res) {
+  const login = req.body.login
+  const password = req.body.password
+  if(login == "Shrek"&& password == "forever") isAdmin = true
+  else isAdmin = false
+  res.redirect("/")
 });
 
 // получаем имя фильма, информацию о котором нужно вывести
@@ -43,7 +60,16 @@ app.get("/info/:film_name", function (req, res) {
       if (err) return console.log(err);
       pool.query("SELECT * FROM localizers WHERE film_name=?", [film_name], function (err, localizers_data) {
         if (err) return console.log(err);
+        // костыль :С
+        actors_data.forEach(element => {
+          element.admin=isAdmin
+        });
+        // костыль :С
+        localizers_data.forEach(element => {
+          element.admin=isAdmin
+        });
         res.render("information.hbs", {
+          admin: isAdmin,
           films: film_data[0],
           actors: actors_data,
           localizers: localizers_data
