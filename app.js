@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // костыль :С
-isAdmin = false
+isAdmin = true
 
 // использование static директорий
 app.set('views', path.join(__dirname, 'views'));
@@ -258,7 +258,7 @@ app.post("/delete_localizer/:film_name/:localizer_name/:localizer_person", funct
   });
 });
 
-// запускаем сервер на адресе localhost с портом 3000
-app.listen(3000, function () {
-  console.log("http://127.0.0.1:3000");
+// запускаем сервер на адресе localhost с портом 8000
+app.listen(8000, function () {
+  console.log("http://127.0.0.1:8000");
 });
