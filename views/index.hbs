@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Shrek Info Service</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="index.css">
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .slides_text {
+            color: black;
+        }
+
+        .slides_pic {
+            height: 600px;
+            width: 420px
+        }
+    </style>
 
 <body>
-
-    <form method="POST" action="/login">
-        <label>login</label><br>
-        <input name="login" class="field"/><br><br>
-        <label>password</label><br>
-        <input name="password" class="field"/><br><br>
-        <input type="submit" value="i'm admin"/>
-    </form>
-
-
     <h1 align="center">Shrek films</h1>
-    {{#if admin}}
     <p align="center"><a href="/create">Add film</a></p>
-    {{/if}}
-    {{#each films}}
-    <table align="center">
-        <tr><td><h1>{{this.film_name}}</h1></td></tr>
-        <tr>
-            <td>{{this.film_name}}</td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/info/{{this.film_name}}"><img src="{{this.film_poster}}" alt="{{this.film_name}} poster"
-                        width="200" height="400"></a>
-            </td>
-        </tr>
-        <tr>
-            <td>{{this.film_release_date}}</td>
-        </tr>
-        <tr>
-            <td>{{this.film_duration}} min</td>
-        </tr>
-        <td>
-            {{#if this.admin}}
-            <a href="/edit/{{this.film_name}}">Edit</a>|
-            <form action="delete/{{this.film_name}}" method="POST">
-                <input type="submit" value="Delete" />
-            </form>
-            {{/if}}
-        </td>
-        </tr>
-        <td>------------------------------------------------------<br><br><br></td>
-    </table>
-    {{/each}}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-auto">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel" data-slide-to="1"></li>
+                        <li data-target="#carousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img class="img-fluid slides_pic" src="{{first_film.film_poster}}"
+                                alt="{{first_film.film_name}} poster">
+                            <div class="carousel-caption slides_text">
+                                <h3 href="/info/{{first_film.film_name}}">{{first_film.film_name}}</h3>
+                                <p>{{first_film.film_release_date}}<br> {{first_film.film_duration}} min</p>
+                            </div>
+                        </div>
+                        {{#each films}}
+                        <div class="carousel-item">
+                            <img class="img-fluid slides_pic" src="{{this.film_poster}}"
+                                alt="{{this.film_name}} poster">
+                            <div class="carousel-caption slides_text">
+                                <h3 href="/info/{{this.film_name}}">{{this.film_name}}</h3>
+                                <p>{{this.film_release_date}}<br> {{this.film_duration}} min</p>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Предыдущий</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Следующий</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

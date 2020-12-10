@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const app = express();
 
+
 // костыль :С
 isAdmin = true
 
@@ -35,9 +36,15 @@ app.get("/", function (req, res) {
     data.forEach(element => {
       element.admin=isAdmin
     });
+    first_film = data[0]
+    new_data = []
+    for(let i=1;i<data.length;++i){
+      new_data.push(data[i])
+    }
     res.render("index.hbs", {
       admin : isAdmin,
-      films: data
+      first_film:first_film,
+      films: new_data
     });
   });
 });
