@@ -1,8 +1,8 @@
 # Shrek Information Service
-## On this service you can view information about the hero named Shrek
-### For usage this code you should run 
+## На этом сайте можно просматривать информацию о герое, которого зовут Шрек
+### Для использования необходимо выполнить в корне проекта
 ~~~bash
 npm install
 node app.js
 ~~~
-![Shrek](https://j.gifs.com/k8m1yX.gif)
+![Shrek](https://i.imgur.com/ONFIvty.gif)
